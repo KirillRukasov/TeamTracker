@@ -18,17 +18,21 @@ CREATE PROCEDURE GetEmployeeById
     @EmployeeID INT
 AS
 BEGIN
-    SELECT *
-    FROM Employee
-    WHERE EmployeeID = @EmployeeID;
+    SELECT e.*, d.*, p.*
+    FROM Employee e
+    JOIN Department d ON e.DepartmentID = d.DepartmentID
+    JOIN ProgrammingLanguage p ON e.ProgrammingLanguageID = p.ProgrammingLanguageID
+    WHERE e.EmployeeID = @EmployeeID
 END;
 GO
 
 CREATE PROCEDURE GetAllEmployees
 AS
 BEGIN
-    SELECT *
-    FROM Employee;
+    SELECT e.*, d.*, p.*
+    FROM Employee e
+    JOIN Department d ON e.DepartmentID = d.DepartmentID
+    JOIN ProgrammingLanguage p ON e.ProgrammingLanguageID = p.ProgrammingLanguageID
 END;
 GO
 
