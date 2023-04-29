@@ -18,7 +18,9 @@ CREATE PROCEDURE GetEmployeeById
     @EmployeeID INT
 AS
 BEGIN
-    SELECT e.*, d.*, p.*
+    SELECT e.*, 
+		d.Name 'DepartmentName', d.Floor 'DepartmentFloor',
+        p.Name AS 'ProgrammingLanguageName'
     FROM Employee e
     JOIN Department d ON e.DepartmentID = d.DepartmentID
     JOIN ProgrammingLanguage p ON e.ProgrammingLanguageID = p.ProgrammingLanguageID
@@ -29,8 +31,9 @@ GO
 CREATE PROCEDURE GetAllEmployees
 AS
 BEGIN
-    SELECT e.*, d.*, p.*
-    FROM Employee e
+    SELECT e.*, 
+		d.Name 'DepartmentName', d.Floor 'DepartmentFloor',
+        p.Name AS 'ProgrammingLanguageName'
     JOIN Department d ON e.DepartmentID = d.DepartmentID
     JOIN ProgrammingLanguage p ON e.ProgrammingLanguageID = p.ProgrammingLanguageID
 END;

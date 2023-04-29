@@ -1,4 +1,4 @@
-@model IEnumerable<TeamTracker.Models.Employee>
+@model List<EmployeeViewModel>
 
 @{
     ViewData["Title"] = "Employees";
@@ -27,11 +27,10 @@
                 <td>@employee.Surname</td>
                 <td>@employee.Age</td>
                 <td>@employee.Gender</td>
-                <td>@employee.Department?.Name</td>
-                <td>@employee.ProgrammingLanguage?.Name</td>
+                <td>@employee.DepartmentName</td>
+                <td>@employee.ProgrammingLanguageName</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@employee.EmployeeID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@employee.EmployeeID">Details</a> |
                     <a asp-action="Delete" asp-route-id="@employee.EmployeeID">Delete</a>
                 </td>
             </tr>

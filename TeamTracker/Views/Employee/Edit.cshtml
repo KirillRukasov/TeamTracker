@@ -1,8 +1,49 @@
-@model Employee
-
+@model TeamTracker.Models.EmployeeViewModel
 @{
-    ViewBag.Title = "title";
+    ViewData["Title"] = "Edit Employee";
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<h1>Edit Employee</h1>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="EmployeeID" />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Surname"></label>
+        <input asp-for="Surname" class="form-control" />
+        <span asp-validation-for="Surname" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Age"></label>
+        <input asp-for="Age" class="form-control" />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Gender"></label>
+        <input asp-for="Gender" class="form-control" />
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DepartmentID">Department</label>
+        <select asp-for="DepartmentID" asp-items="@(new SelectList(ViewBag.Departments, "DepartmentID", "Name"))" class="form-control"></select>
+        <span asp-validation-for="DepartmentID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProgrammingLanguageID">Programming Language</label>
+        <select asp-for="ProgrammingLanguageID" asp-items="@(new SelectList(ViewBag.ProgrammingLanguages, "ProgrammingLanguageID", "Name"))" class="form-control"></select>
+        <span asp-validation-for="ProgrammingLanguageID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

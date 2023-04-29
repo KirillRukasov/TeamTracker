@@ -7,10 +7,15 @@ namespace TeamTracker.Controllers;
 public class EmployeeController : Controller
 {
     private readonly IEmployeeRepository _employeeRepository;
+    private IDepartmentRepository _departmentRepository;
+    private IProgrammingLanguageRepository _programmingLanguageRepository;
 
-    public EmployeeController(IEmployeeRepository employeeRepository)
+    public EmployeeController(IEmployeeRepository employeeRepository, 
+        IProgrammingLanguageRepository programmingLanguageRepository, IDepartmentRepository departmentRepository)
     {
         _employeeRepository = employeeRepository;
+        _programmingLanguageRepository = programmingLanguageRepository;
+        _departmentRepository = departmentRepository;
     }
     
             // GET: Employee
@@ -52,7 +57,7 @@ public class EmployeeController : Controller
             return View(employee);
         }
 
-        // GET: Employee/Edit/5
+        //GET: Employee/Edit/5
         public IActionResult Edit(int id)
         {
             var employee = _employeeRepository.GetEmployeeById(id);
@@ -60,27 +65,43 @@ public class EmployeeController : Controller
             {
                 return NotFound();
             }
-
+            
+            ViewBag.Departments = _departmentRepository.GetDepartments();
+            ViewBag.ProgrammingLanguages = _programmingLanguageRepository.GetProgrammingLanguages();
+        
             return View(employee);
         }
 
         // POST: Employee/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Employee employee)
+        public IActionResult Edit(int id, EmployeeViewModel  employeeViewModel)
         {
-            if (id != employee.EmployeeID)
+            if (id != employeeViewModel.EmployeeID)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                Employee employee = new Employee
+                {
+                    EmployeeID = employeeViewModel.EmployeeID,
+                    Name = employeeViewModel.Name,
+                    Surname = employeeViewModel.Surname,
+                    Age = employeeViewModel.Age,
+                    Gender = employeeViewModel.Gender,
+                    DepartmentID = employeeViewModel.DepartmentID,
+                    ProgrammingLanguageID = employeeViewModel.ProgrammingLanguageID
+                };
+
                 _employeeRepository.UpdateEmployee(employee);
                 return RedirectToAction(nameof(Index));
             }
-
-            return View(employee);
+            
+            ViewBag.Departments = _departmentRepository.GetDepartments();
+            ViewBag.ProgrammingLanguages = _programmingLanguageRepository.GetProgrammingLanguages();
+            return View(employeeViewModel);
         }
 
         // GET: Employee/Delete/5
@@ -96,7 +117,7 @@ public class EmployeeController : Controller
         }
 
         // POST: Employee/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {

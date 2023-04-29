@@ -13,19 +13,17 @@ public class EmployeeRepository : IEmployeeRepository
             _dbContext = dbContext;
         }
 
-        public IEnumerable<Employee> GetAllEmployees()
+        public IEnumerable<EmployeeViewModel> GetAllEmployees()
         {
-            return _dbContext.Employees.FromSqlRaw("EXECUTE GetAllEmployees")
-                .Include(e => e.Department)
-                .Include(e => e.ProgrammingLanguage)
+            return _dbContext.EmployeeViewModels.FromSqlRaw("EXECUTE GetAllEmployees")
+                .AsNoTracking()
                 .ToList();
         }
 
-        public Employee GetEmployeeById(int employeeId)
+        public EmployeeViewModel GetEmployeeById(int employeeId)
         {
-            return _dbContext.Employees.FromSqlRaw("EXECUTE GetEmployeeById @EmployeeID", new SqlParameter("@EmployeeID", employeeId))
-                .Include(e => e.Department)
-                .Include(e => e.ProgrammingLanguage)
+            return _dbContext.EmployeeViewModels.FromSqlRaw("EXECUTE GetEmployeeById @EmployeeID", new SqlParameter("@EmployeeID", employeeId))
+                .AsNoTracking().AsEnumerable()
                 .FirstOrDefault();
         }
 
@@ -42,14 +40,18 @@ public class EmployeeRepository : IEmployeeRepository
 
         public void UpdateEmployee(Employee employee)
         {
-            _dbContext.Database.ExecuteSqlRaw("EXECUTE UpdateEmployee @EmployeeID, @Name, @Surname, @Age, @Gender, @DepartmentID, @ProgrammingLanguageID",
+            var parameters = new[]
+            {
                 new SqlParameter("@EmployeeID", employee.EmployeeID),
                 new SqlParameter("@Name", employee.Name),
                 new SqlParameter("@Surname", employee.Surname),
                 new SqlParameter("@Age", employee.Age),
                 new SqlParameter("@Gender", employee.Gender),
                 new SqlParameter("@DepartmentID", employee.DepartmentID),
-                new SqlParameter("@ProgrammingLanguageID", employee.ProgrammingLanguageID));
+                new SqlParameter("@ProgrammingLanguageID", employee.ProgrammingLanguageID)
+            };
+            _dbContext.Database.ExecuteSqlRaw("EXECUTE UpdateEmployee @EmployeeID, @Name, @Surname, @Age, @Gender, @DepartmentID, @ProgrammingLanguageID", parameters);
+
         }
 
         public void DeleteEmployee(int employeeId)
