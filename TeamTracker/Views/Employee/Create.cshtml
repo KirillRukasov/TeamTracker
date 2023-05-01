@@ -1,8 +1,56 @@
-@model dynamic
+@model EmployeeEditViewModel
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewData["Title"] = "Create Employee";
 }
 
-<h2>title</h2>
+<h1>Create Employee</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Employee.Name">Name</label>
+        <input asp-for="Employee.Name" class="form-control" />
+        <span asp-validation-for="Employee.Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Employee.Surname">Surname</label>
+        <input asp-for="Employee.Surname" class="form-control" />
+        <span asp-validation-for="Employee.Surname" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Employee.Age">Age</label>
+        <input asp-for="Employee.Age" class="form-control" />
+        <span asp-validation-for="Employee.Age" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Employee.Gender">Gender</label>
+        <input asp-for="Employee.Gender" class="form-control" />
+        <span asp-validation-for="Employee.Gender" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Employee.DepartmentID">Department</label>
+        <select asp-for="Employee.DepartmentID" asp-items="@(new SelectList(Model.Departments, "DepartmentID", "Name"))" class="form-control">
+            <option value="">-- Select Department --</option>
+        </select>
+        <span asp-validation-for="Employee.DepartmentID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Employee.ProgrammingLanguageID">Programming Language</label>
+        <select asp-for="Employee.ProgrammingLanguageID" asp-items="@(new SelectList(Model.ProgrammingLanguages, "ProgrammingLanguageID", "Name"))" class="form-control">
+            <option value="">-- Select Programming Language --</option>
+        </select>
+        <span asp-validation-for="Employee.ProgrammingLanguageID" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

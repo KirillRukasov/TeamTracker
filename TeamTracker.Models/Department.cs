@@ -15,6 +15,4 @@ public class Department
 
     [Required]
     public int Floor { get; set; }
-    
-    public virtual ICollection<Employee> Employees { get; set; }
 }

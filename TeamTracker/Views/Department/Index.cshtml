@@ -1,8 +1,38 @@
-@model System.Collections.Generic.List<TeamTracker.Models.Department>
+@model IEnumerable<TeamTracker.Models.Department>
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewData["Title"] = "Departments";
 }
 
-<h2>title</h2>
+<h1>Departments</h1>
+
+<p>
+    <a asp-controller="Department" asp-action="Create" class="btn btn-primary">Create New Department</a>
+</p>
+
+<div style="height: 500px; overflow-y: auto;">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Floor</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var department in Model)
+        {
+            <tr>
+                <td>@department.DepartmentID</td>
+                <td>@department.Name</td>
+                <td>@department.Floor</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@department.DepartmentID" class="btn btn-secondary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@department.DepartmentID" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    </div>

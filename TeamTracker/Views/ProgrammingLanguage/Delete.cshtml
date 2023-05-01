@@ -1,8 +1,18 @@
-@model ProgrammingLanguage
+@model TeamTracker.Models.ProgrammingLanguage
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewData["Title"] = "Delete Programming Language";
 }
 
-<h2>title</h2>
+<h1>Delete Programming Language</h1>
+
+<h3>Are you sure you want to delete this programming language?</h3>
+
+<div>
+    <h4>@Model.Name</h4>
+    <form asp-controller="ProgrammingLanguage" asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" name="id" value="@Model.ProgrammingLanguageID" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-controller="ProgrammingLanguage" asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

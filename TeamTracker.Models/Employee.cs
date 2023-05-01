@@ -18,17 +18,17 @@ public class Employee
     public string Surname { get; set; }
 
     [Required]
+    [Range(1, 119, ErrorMessage = "Department ID must be between 1 and 119.")]
     public int Age { get; set; }
 
     [Required]
     [MaxLength(1)]
+    [RegularExpression("^(M|F)$", ErrorMessage = "Gender must be either 'M' or 'F'")]
     public string Gender { get; set; }
 
     [ForeignKey("Department")]
     public int DepartmentID { get; set; }
-    public virtual Department Department { get; set; }
 
     [ForeignKey("ProgrammingLanguage")]
     public int ProgrammingLanguageID { get; set; }
-    public virtual ProgrammingLanguage ProgrammingLanguage { get; set; }
 }

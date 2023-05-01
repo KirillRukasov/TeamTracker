@@ -23,6 +23,22 @@
     </nav>
 </header>
 <div class="container">
+     <div class="container">
+         <ul class="nav nav-tabs">
+             <li class="nav-item">
+                 <a class="nav-link" asp-controller="Employee" asp-action="Index">Employees List</a>
+             </li>
+             <li class="nav-item">
+                 <a class="nav-link" asp-controller="Employee" asp-action="Create">Add New Employee</a>
+             </li>
+             <li class="nav-item">
+                 <a class="nav-link" asp-controller="Department" asp-action="Index">Edit Departments</a>
+             </li>
+             <li class="nav-item">
+                 <a class="nav-link" asp-controller="ProgrammingLanguage" asp-action="Index">Edit Programming Language</a>
+             </li>
+         </ul>
+     </div>    
     <main role="main" class="pb-3">
         @RenderBody()
     </main>

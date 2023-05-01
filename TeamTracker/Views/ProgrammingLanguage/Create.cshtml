@@ -1,8 +1,18 @@
-@model dynamic
+@model TeamTracker.Models.ProgrammingLanguage
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewData["Title"] = "Add New Programming Language";
 }
 
-<h2>title</h2>
+<h1>Add New Programming Language</h1>
+
+<form asp-controller="ProgrammingLanguage" asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-controller="ProgrammingLanguage" asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+

@@ -1,48 +1,59 @@
-@model TeamTracker.Models.EmployeeViewModel
+@model EmployeeEditViewModel
+
 @{
-    ViewData["Title"] = "Edit Employee";
-    Layout = "_Layout";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Edit Employee</h1>
+<h1>Edit</h1>
 
-<form asp-action="Edit">
-    <input type="hidden" asp-for="EmployeeID" />
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+<h4>Employee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Employee.EmployeeID" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Employee.Name" class="control-label"></label>
+                <input asp-for="Employee.Name" class="form-control" />
+                <span asp-validation-for="Employee.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.Surname" class="control-label"></label>
+                <input asp-for="Employee.Surname" class="form-control" />
+                <span asp-validation-for="Employee.Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.Age" class="control-label"></label>
+                <input asp-for="Employee.Age" class="form-control" />
+                <span asp-validation-for="Employee.Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.Gender" class="control-label"></label>
+                <input asp-for="Employee.Gender" class="form-control" />
+                <span asp-validation-for="Employee.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.DepartmentID" class="control-label">Department</label>
+                <select asp-for="Employee.DepartmentID" class="form-control" asp-items="@(new SelectList(Model.Departments, "DepartmentID", "Name"))">
+                    <option value="">-- Select Department --</option>
+                </select>
+                <span asp-validation-for="Employee.DepartmentID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employee.ProgrammingLanguageID" class="control-label">ProgrammingLanguage</label>
+                <select asp-for="Employee.ProgrammingLanguageID" class="form-control" asp-items="@(new SelectList(Model.ProgrammingLanguages, "ProgrammingLanguageID", "Name"))">
+                    <option value="">-- Select Programming Language --</option>
+                </select>
+                <span asp-validation-for="Employee.ProgrammingLanguageID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label asp-for="Surname"></label>
-        <input asp-for="Surname" class="form-control" />
-        <span asp-validation-for="Surname" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Age"></label>
-        <input asp-for="Age" class="form-control" />
-        <span asp-validation-for="Age" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Gender"></label>
-        <input asp-for="Gender" class="form-control" />
-        <span asp-validation-for="Gender" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="DepartmentID">Department</label>
-        <select asp-for="DepartmentID" asp-items="@(new SelectList(ViewBag.Departments, "DepartmentID", "Name"))" class="form-control"></select>
-        <span asp-validation-for="DepartmentID" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="ProgrammingLanguageID">Programming Language</label>
-        <select asp-for="ProgrammingLanguageID" asp-items="@(new SelectList(ViewBag.ProgrammingLanguages, "ProgrammingLanguageID", "Name"))" class="form-control"></select>
-        <span asp-validation-for="ProgrammingLanguageID" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-    </div>
-</form>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

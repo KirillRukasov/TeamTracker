@@ -19,19 +19,7 @@ public class ProgrammingLanguageController : Controller
             var programmingLanguages = _programmingLanguageRepository.GetProgrammingLanguages();
             return View(programmingLanguages.ToList());
         }
-
-        // GET: ProgrammingLanguage/Details/5
-        public IActionResult Details(int id)
-        {
-            var programmingLanguage = _programmingLanguageRepository.GetProgrammingLanguageById(id);
-            if (programmingLanguage == null)
-            {
-                return NotFound();
-            }
-
-            return View(programmingLanguage);
-        }
-
+        
         // GET: ProgrammingLanguage/Create
         public IActionResult Create()
         {
@@ -69,11 +57,6 @@ public class ProgrammingLanguageController : Controller
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, ProgrammingLanguage programmingLanguage)
         {
-            if (id != programmingLanguage.ProgrammingLanguageID)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 _programmingLanguageRepository.UpdateProgrammingLanguage(programmingLanguage);
@@ -96,7 +79,7 @@ public class ProgrammingLanguageController : Controller
         }
 
         // POST: ProgrammingLanguage/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {

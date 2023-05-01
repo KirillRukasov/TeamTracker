@@ -1,8 +1,37 @@
-@model System.Collections.Generic.List<TeamTracker.Models.ProgrammingLanguage>
+@model IEnumerable<TeamTracker.Models.ProgrammingLanguage>
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewData["Title"] = "Programming Languages";
 }
 
-<h2>title</h2>
+<h1>Programming Languages</h1>
+
+<p>
+    <a asp-controller="ProgrammingLanguage" asp-action="Create" class="btn btn-primary">Add New Programming Language</a>
+</p>
+
+<div style="height: 500px; overflow-y: auto;">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProgrammingLanguageID</td>
+                <td>@item.Name</td>
+                <td>
+                    <a asp-controller="ProgrammingLanguage" asp-action="Edit" asp-route-id="@item.ProgrammingLanguageID" class="btn btn-secondary">Edit</a>
+                    <a asp-controller="ProgrammingLanguage" asp-action="Delete" asp-route-id="@item.ProgrammingLanguageID" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    </div>
+

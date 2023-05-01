@@ -9,10 +9,12 @@ public class TeamTrackerDbContext : DbContext
     public DbSet<Department> Departments { get; set; }
     public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
     public DbSet<EmployeeViewModel> EmployeeViewModels { get; set; }
-    
+    public DbSet<EmployeeEditViewModel> EmployeeEditViewModels { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<EmployeeViewModel>().HasNoKey().ToView(null);
+        modelBuilder.Entity<EmployeeEditViewModel>().HasNoKey().ToView(null);
     }
     public TeamTrackerDbContext(DbContextOptions<TeamTrackerDbContext> options) : base(options)
     {

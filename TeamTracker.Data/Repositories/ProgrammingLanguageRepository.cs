@@ -21,7 +21,7 @@ public class ProgrammingLanguageRepository : IProgrammingLanguageRepository
     public ProgrammingLanguage GetProgrammingLanguageById(int programmingLanguageId)
     {
         return _dbContext.ProgrammingLanguages.FromSqlRaw("EXECUTE GetProgrammingLanguageByID @ProgrammingLanguageID", 
-            new SqlParameter("@ProgrammingLanguageID", programmingLanguageId)).FirstOrDefault();
+            new SqlParameter("@ProgrammingLanguageID", programmingLanguageId)).AsNoTracking().AsEnumerable().FirstOrDefault();
     }
 
     public void AddProgrammingLanguage(ProgrammingLanguage programmingLanguage)

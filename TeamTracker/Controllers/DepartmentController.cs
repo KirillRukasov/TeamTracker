@@ -20,18 +20,6 @@ public class DepartmentController : Controller
             return View(departments.ToList());
         }
 
-        // GET: Department/Details/5
-        public IActionResult Details(int id)
-        {
-            var department = _departmentRepository.GetDepartmentById(id);
-            if (department == null)
-            {
-                return NotFound();
-            }
-
-            return View(department);
-        }
-
         // GET: Department/Create
         public IActionResult Create()
         {
@@ -41,7 +29,7 @@ public class DepartmentController : Controller
         // POST: Department/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Department department)
+        public IActionResult Create([Bind("Name,Floor")]Department department)
         {
             if (ModelState.IsValid)
             {
@@ -69,11 +57,6 @@ public class DepartmentController : Controller
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Department department)
         {
-            if (id != department.DepartmentID)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 _departmentRepository.UpdateDepartment(department);
@@ -96,7 +79,7 @@ public class DepartmentController : Controller
         }
 
         // POST: Department/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {

@@ -16,13 +16,14 @@ public class DepartmentRepository : IDepartmentRepository
 
     public IEnumerable<Department> GetDepartments()
     {
-        return _dbContext.Departments.FromSqlRaw("EXECUTE GetDepartments").ToList();
+        return _dbContext.Departments.FromSqlRaw("EXECUTE GetDepartments").AsNoTracking()
+            .ToList();
     }
 
     public Department GetDepartmentById(int departmentId)
     {
         return _dbContext.Departments.FromSqlRaw("EXECUTE GetDepartmentByID @DepartmentID", new SqlParameter("@DepartmentID", departmentId))
-            .FirstOrDefault();
+            .AsNoTracking().AsEnumerable().FirstOrDefault();
     }
 
     public void AddDepartment(Department department)
