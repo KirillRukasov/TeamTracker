@@ -18,7 +18,6 @@
     <ItemGroup>
       <ProjectReference Include="..\TeamTracker.Data\TeamTracker.Data.csproj" />
       <ProjectReference Include="..\TeamTracker.Models\TeamTracker.Models.csproj" />
-      <ProjectReference Include="..\TeamTracker.Tests\TeamTracker.Tests.csproj" />
     </ItemGroup>
 
     <ItemGroup>
